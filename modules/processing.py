@@ -33,7 +33,7 @@ from ldm.models.diffusion.ddpm import LatentDepth2ImageDiffusion
 
 from einops import repeat, rearrange
 from blendmodes.blend import blendLayers, BlendType
-from modules.sd_models import apply_token_merging
+from sd_models import apply_token_merging
 from modules_forge.forge_util import apply_circular_forge
 
 
