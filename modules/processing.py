@@ -33,7 +33,8 @@ from ldm.models.diffusion.ddpm import LatentDepth2ImageDiffusion
 
 from einops import repeat, rearrange
 from blendmodes.blend import blendLayers, BlendType
-from modules.sd_models import apply_token_merging
+#from modules.sd_models import apply_token_merging
+from modules import sd_models
 from modules_forge.forge_util import apply_circular_forge
 
 
@@ -1259,7 +1260,7 @@ class StableDiffusionProcessingTxt2Img(StableDiffusionProcessing):
             x = self.rng.next()
 
             self.sd_model.forge_objects = self.sd_model.forge_objects_after_applying_lora.shallow_copy()
-            apply_token_merging(self.sd_model, self.get_token_merging_ratio())
+            sd_models.apply_token_merging(self.sd_model, self.get_token_merging_ratio())
 
             if self.scripts is not None:
                 self.scripts.process_before_every_sampling(self,
@@ -1372,7 +1373,7 @@ class StableDiffusionProcessingTxt2Img(StableDiffusionProcessing):
             self.scripts.before_hr(self)
 
         self.sd_model.forge_objects = self.sd_model.forge_objects_after_applying_lora.shallow_copy()
-        apply_token_merging(self.sd_model, self.get_token_merging_ratio(for_hr=True))
+        sd_models.apply_token_merging(self.sd_model, self.get_token_merging_ratio(for_hr=True))
 
         if self.scripts is not None:
             self.scripts.process_before_every_sampling(self,
@@ -1687,7 +1688,7 @@ class StableDiffusionProcessingImg2Img(StableDiffusionProcessing):
             x *= self.initial_noise_multiplier
 
         self.sd_model.forge_objects = self.sd_model.forge_objects_after_applying_lora.shallow_copy()
-        apply_token_merging(self.sd_model, self.get_token_merging_ratio())
+        sd_models.apply_token_merging(self.sd_model, self.get_token_merging_ratio())
 
         if self.scripts is not None:
             self.scripts.process_before_every_sampling(self,
